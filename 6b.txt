@@ -1,0 +1,27 @@
+--UPDATE ksiegowosc.pracownicy set telefon = 111111111;
+
+--UPDATE ksiegowosc.pracownicy
+--SET telefon = CONCAT('(+48)',SUBSTRING(telefon,1,3),'-',SUBSTRING(telefon, 4, 3), '-', SUBSTRING(telefon,7, 3));
+
+--SELECT * FROM ksiegowosc.pracownicy;
+--Select upper(nazwisko) from ksiegowosc.pracownicy where length(nazwisko)= (select max(length(nazwisko)) from ksiegowosc.pracownicy);
+
+/*Select 
+MD5(imie) as imie,
+MD5(nazwisko) as nazwisko,
+MD5(adres) as adres,
+MD5(telefon) as telefon,
+MD5(CAST(pensje.kwota AS varchar)) as pensje
+FROM ksiegowosc.pracownicy inner join ksiegowosc.wynagrodzenia on pracownicy.id_pracownika = wynagrodzenia.id_pracownika inner join ksiegowosc.pensje on pensje.id_pensji = wynagrodzenia.id_pensji */
+
+/*Select imie, nazwisko, adres, telefon, pensje.kwota, premie.kwota from ksiegowosc.pracownicy
+left join ksiegowosc.wynagrodzenia on wynagrodzenia.id_pracownika = pracownicy.id_pracownika 
+left join ksiegowosc.pensje on wynagrodzenia.id_pensji = pensje.id_pensji
+left join ksiegowosc.premie on wynagrodzenia.id_premii = premie.id_premii*/
+
+
+Select CONCAT('Pracownik: ', imie, nazwisko, 'w dniu', data, 'otrzymał pensje całkowitą: ',pensje.kwota+premie.kwota, 
+			  'gdzie zasadnicze wynagrodzenie wynosiło: ', pensje.kwota, 'premia: ', premie.kwota) from ksiegowosc.pracownicy
+left join ksiegowosc.wynagrodzenia on wynagrodzenia.id_pracownika = pracownicy.id_pracownika 
+left join ksiegowosc.pensje on wynagrodzenia.id_pensji = pensje.id_pensji
+left join ksiegowosc.premie on wynagrodzenia.id_premii = premie.id_premii
