@@ -1,0 +1,32 @@
+1)
+
+
+CREATE FUNCTION fib(n INT)
+RETURNS BIGINT AS $$
+BEGIN
+	IF n <= 0 THEN
+		RETURN 0;
+	ELSIF n = 1 THEN
+		RETURN 1;
+	ELSE 
+		return fib(n-1) + fib(n-2);
+	END IF;
+END;
+$$ language plpsql;
+
+CREATE PROCEDURE print_fib(n INT)
+LANGUAGE plpsql
+AS $$
+DECLARE
+	counter INT := 1;
+	number BIGINT;
+BEGIN
+	WHILE counter <= n LOOP	
+		number := fib(counter)
+		RAISE NOTICE 'Liczba fibonaciego %: %' counter, number;
+		counter := counter + 1;
+	END LOOP;
+END;
+$$;
+
+
