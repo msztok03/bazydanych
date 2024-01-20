@@ -1,0 +1,26 @@
+Zad 1
+
+Z kluczem głównym:
+
+Zapytanie może wykorzystać indeks na kolumnach SalesOrderID i SalesOrderDetailID. Prowadzi to do:
+- szybkiego wyszukania konkretnego rekordu.
+- wykonanie będzie optymalne, a koszty operacji I/O i CPU będą niskie
+- ilość wierszy wczytanych będzie minimalna.
+
+
+Bez klucza głównego:
+
+-Wyszukuwanie objęło o wiele wiecej wierszy-całą tabelę
+-koszty o wiele większe
+-Zmiana slowa AND na OR
+
+
+
+Zad 2
+CREATE INDEX IX_Product_Name ON Production.Product (Name);
+
+SELECT ProductID, Name
+FROM Production.Product
+WHERE Name = 'Bearing Ball';
+
+Po dodaniu indeksu plan wykonania jest bardziej optymalny, indeksy przyspieszaja wyszukiwanie rekordow
